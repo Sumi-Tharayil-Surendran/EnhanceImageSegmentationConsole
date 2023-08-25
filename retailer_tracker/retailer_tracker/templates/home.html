@@ -1,0 +1,257 @@
+{% extends 'base.html' %} {% load static %} {% block css%}
+<link href="{% static '/assets/css/PinStyle.css' %}" rel="stylesheet">
+<link href="{% static '/assets/vendor/tagify/tagify.css' %}" rel="stylesheet">
+<link href="{% static '/assets/css/bootstrap-tagsinput.css' %}" rel="stylesheet"> t
+<style>
+    .title-2 {
+        font-size: 15px;
+        font-weight: bold;
+        color: #0066c0;
+    }
+    
+    .pinbox {
+        -webkit-border-radius: 10px !important;
+        background-color: #f2f0f0;
+        border-radius: 19px !important;
+        margin-top: 14px;
+        overflow: hidden;
+        position: relative;
+        width: 283px;
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+        border: 1px solid #c6c1c1;
+    }
+    
+    .pinbox .bootstrap-tagsinput {
+        border-radius: 0 0 19px 19px !important;
+    }
+    
+    .cd-slider li img {
+        min-width: 200px !important;
+    }
+    
+    .title-3 {
+        display: none;
+        /*color: #fff;
+        font-size: 16px;*/
+        color: #292828;
+        font-size: 16px;
+    }
+    /*.pinbox:hover .title-3 {
+        display: block;
+    }
+
+    .pinbox:hover .title-2 {
+        display: none;
+    }*/
+    
+    .pinbox .title+.excerpt {
+        border-bottom-color: #000000 !important;
+        border-style: none !important;
+    }
+    
+    .label {
+        /*padding: 0px 6px 3px 6px;*/
+        padding: 4px 6px 6px 4px;
+        white-space: pre;
+        font-weight: 600;
+        font-size: 100% !important;
+        display: inline-block !important;
+    }
+    
+    .label-info {
+        background-color: white;
+    }
+    
+    .bootstrap-tagsinput .tag {
+        margin-bottom: 0px !important;
+        margin-right: 0px !important;
+    }
+    
+    .tagTable .bootstrap-tagsinput {
+        background-color: white !important;
+        width: 494px;
+        border: none;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        display: inline-block;
+        padding: 4px 6px;
+        color: white;
+        vertical-align: middle;
+        line-height: 31px;
+    }
+    
+    .tagTable .bootstrap-tagsinput .tag {
+        border-radius: 5px !important;
+        cursor: pointer;
+        margin-bottom: 2px;
+        opacity: 1;
+    }
+    
+    .imgProduct {
+        margin-left: 13%;
+        margin-top: 6%;
+        margin-bottom: 1%;
+    }
+    
+    .preview {
+        background: white;
+        border-bottom: 4px solid #ffef77;
+    }
+    
+    .effect8 {
+        position: relative;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    }
+    
+    .effect8:before,
+    .effect8:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        top: 10px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        border-radius: 100px / 20px;
+    }
+    
+    .effect8:after {
+        right: 10px;
+        left: auto;
+        transform: skew(8deg) rotate(3deg);
+    }
+    
+    #divSkills h2 {
+        margin: 0;
+    }
+    
+    #divSkills tags {
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+</style>
+{% endblock %} {% block content%}
+<section class="section dashboard">
+    <!-- <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <div class="col-md-4 offset-md-4 col-sm-12">
+                <select class="form-control" style="width: 100%;">
+                    <option value="1">Hair Care</option>
+                    <option value="2">Laundy and fabric care</option>
+                    <option value="3">Carbonated</option>
+                </select>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+
+        <div class="col-md-12" id="pinContainer">
+
+        </div>
+
+
+    </div>
+    <div class="pinbox box effect8" id="pinBoxTemplate" hidden>
+        <div id="divSkills" class="post" style="border-radius: 19px 19px 0px 0px !important;">
+            <div class="top-bar" style="border-radius: 19px 19px 0px 0px !important;">
+            </div>
+
+            <div class="preview" style="border-radius: 19px 19px 0px 0px !important;">
+                <p class="thumb">
+                    <a class="atooltip btnFancybox" data-fancybox="quick-view" data-qw-form="qw-form-1" title="Click to view details">
+                        <img class="imgProduct" src="" alt="Image">
+                    </a>
+                </p>
+            </div>
+
+            <input class="taginput" readonly value="" />
+            <textarea class="taginput2 form-control" style="width: 100%;"></textarea>
+        </div>
+    </div>
+
+</section>
+{% endblock %} {% block js%}
+<!-- <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+
+<script src="{% static '/assets/vendor/tagify/tagify.js' %}"></script>
+<script src="{% static '/assets/js/shared/utility.js' %}"></script>
+<script src="{% static '/assets/js/shared/bootstrap-tagsinput.js' %}"></script>
+
+<!-- <script src="/Assets/plugins/masonry-docs/masonry.pkgd.js"></script> -->
+
+<script>
+    var HomeProductGet_URL = "{% url 'HomeProductGet' %}";
+
+
+    var row_index = 0;
+    $(document).ready(function() {
+        //$('#pinContainer').masonry('layout');
+        $('#pinContainer').masonry({
+            itemSelector: '.pinbox',
+            gutter: 10,
+            columnWidth: 300,
+            percentPosition: true,
+            transitionDuration: '0.8s'
+        });
+        var input2 = document.querySelector('.taginput')
+
+        var tagify2 = new Tagify(input2, {
+            enforeWhitelist: true,
+            whitelist: [],
+        });
+
+
+
+        HomeProductGet({
+            'index': row_index
+        });
+
+    })
+
+    const HomeProductGet = async(data) => {
+        APIRequestHandlerFetch(HomeProductGet_URL, 'POST', data, (response) => {
+            $('#pinContainer').empty();
+            var def = [];
+            $.each(response.result, function(index, val) {
+                def.push(createPinBoxMasonry(val));
+            });
+            $.when.apply($, def).done(function() {
+                // $('#txtMSearch').trigger('itemAdded');
+                $('#pinContainer').imagesLoaded(function() {
+                    $('#pinContainer').masonry('layout');
+                });
+            });
+
+        })
+    }
+
+
+    function createPinBoxMasonry(data) {
+        var dfd = $.Deferred();
+        var def = [];
+        var template = $('#pinBoxTemplate').clone(true);
+
+        //$(template).addClass(data.ProductID);
+        // $('.taginput', template).attr("id", data.SnipID + "Tags-" + data.CurrentLocation)
+        $('.taginput', template).val(data.Segment);
+        $(template).data('rowid', data.ID);
+        if (row_index == 0 || parseInt(data.ID) < row_index) {
+            row_index = parseInt(data.ID)
+        }
+        $('.imgProduct', template).attr('src', data.ImagePath);
+        $('.taginput', template).attr('value', data.Segment_id);
+        $('.taginput2', template).html(data.ConfidenceJson);
+        template.removeAttr("id");
+        template.removeAttr("hidden");
+        $('#pinContainer').append(template).masonry('appended', template);
+        dfd.resolve();
+        return dfd.promise();
+    }
+</script>
+{% endblock %}

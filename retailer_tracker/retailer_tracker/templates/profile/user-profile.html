@@ -1,0 +1,504 @@
+{% extends 'base.html' %} {% load static %} {% block css%}
+<link href="{% static '/assets/css/datepicker.css' %}" rel="stylesheet">
+<link href="{% static '/assets/vendor/tagify/tagify.css' %}" rel="stylesheet">
+<style>
+    #divSkills h2 {
+        margin: 0;
+    }
+    
+    #divSkills tags {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin: 1.5em 0;
+    }
+    
+    #divSkills label {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font: 600 .8em Arial;
+        white-space: nowrap;
+    }
+    
+    #divSkills .disabled {
+        tags {
+            display: none;
+            &+input,
+            &+textarea {
+                display: inline-block !important;
+                width: 350px;
+                padding: .5em;
+                border: 1px inset;
+            }
+        }
+    }
+    
+    #divSkills a {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 10%;
+    }
+    
+    #divSkills a:hover {
+        opacity: .8;
+    }
+    
+    #divSkills a>img {
+        width: 100%;
+    }
+</style>
+{% endblock %} {% block content%}
+
+<div class="pagetitle">
+    <h1>Profile</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <!-- <li class="breadcrumb-item">Users</li> -->
+            <li class="breadcrumb-item active">Profile</li>
+        </ol>
+    </nav>
+</div>
+<!-- End Page Title -->
+
+<section class="section profile">
+    <div class="row">
+        <div class="col-xl-4">
+
+            <div class="card">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                    <img id="imgProfileImageBig" src="{% static '/assets/img/user.svg' %}" alt="Profile" class="rounded-circle">
+                    <h2 id="hCandidateName">...</h2>
+                    <h3 id="hCandiatePosition">Position</h3>
+                    <div class="social-links mt-2">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xl-8">
+
+            <div class="card">
+                <div class="card-body pt-3">
+                    <!-- Bordered Tabs -->
+                    <ul class="nav nav-tabs nav-tabs-bordered">
+
+                        <li class="nav-item">
+                            <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
+                                Profile</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-assets">Assets</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content pt-2">
+
+                        <div class="tab-pane fade   profile-overview" id="profile-overview">
+                            <h5 class="card-title">About</h5>
+                            <p class="small fst-italic" id="pCandidateAbout"></p>
+
+                            <h5 class="card-title">Profile Details</h5>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                <div class="col-lg-9 col-md-8" id="divCandidateFullName">...</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Email</div>
+                                <div class="col-lg-9 col-md-8" id="divEmail">...</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Phone</div>
+                                <div class="col-lg-9 col-md-8" id="divPhone">...</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Date of Birth</div>
+                                <div class="col-lg-9 col-md-8" id="divDataOfBirth">...</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Passport</div>
+                                <div class="col-lg-9 col-md-8" id="divPassport">...</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Gender</div>
+                                <div class="col-lg-9 col-md-8" id="divGender">...</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Nationality</div>
+                                <div class="col-lg-9 col-md-8" id="divNationality">...
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Marital Status</div>
+                                <div class="col-lg-9 col-md-8" id="divMaritalStatus">...</div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                            <!-- Profile Edit Form -->
+
+                            <div class="row mb-3">
+                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
+                                    Image</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input hidden accept="image/*" type='file' id="flImage" />
+                                    <img id="imgProfileImage" src="" alt="Profile">
+                                    <div class="pt-2">
+                                        <a id="btnUploadProfileImage" href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                                        <a id="btnUploadProfileImageRemove" href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="fullName" type="text" class="form-control" id="txtFirstName" value="">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Middle Name</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="fullName" type="text" class="form-control" id="txtMiddleName" value="">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="fullName" type="text" class="form-control" id="txtLastName" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <textarea name="about" class="form-control" id="txtAbout" style="height: 100px"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="txtPhone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="txtPhone" type="text" class="form-control" id="txtPhone" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="Job" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="job" type="text" class="form-control datepicker_input" id="txtDateOfBirth" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Passport</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="country" type="text" class="form-control" id="txtPassport" value="USA">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="ddlGender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <select id="ddlGender" class="form-control">
+                                        <option value=""></option>
+                                        {% for gender_option in genderList %}
+                                        <option value="{{ gender_option.code}}">{{ gender_option.description }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="ddlGender" class="col-md-4 col-lg-3 col-form-label">Nationality</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <select id="ddlNationality" class="form-control">
+                                        <option value=""></option>
+                                        {% for nationality_option in nationalityList %}
+                                        <option value="{{ nationality_option.code}}">{{ nationality_option.description}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="ddlMaritalStatus" class="col-md-4 col-lg-3 col-form-label">Marital
+                                    Status</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <select id="ddlMaritalStatus" class="form-control">
+                                        <option value=""></option>
+                                        {% for marital_option in maritalStatusList %}
+                                        <option value="{{ marital_option.code}}">{{ marital_option.description }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="text-center">
+                                <button id="btnUpdateCandidateBasicDetails" type="button" class="btn btn-primary">Save
+                                    Changes</button>
+                            </div>
+
+
+                        </div>
+
+                        <div class="tab-pane fade show active pt-3" id="profile-assets">
+
+                            <!-- Settings Form -->
+
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-12 col-lg-12">
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Accordion without outline borders</h5>
+
+                                            <!-- Accordion without outline borders -->
+                                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingOne">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                            Skills
+                                                        </button>
+                                                    </h2>
+                                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body" id="divSkills">
+                                                            <textarea id="txtSkills" name='tags2' placeholder='Skills' style="width: 100% !important;">
+                                                            {{tagString}}
+                                                        </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingTwo">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                            Education
+                                                        </button>
+                                                    </h2>
+                                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            <div class="row mb-3">
+                                                                <div class="col-sm-4">
+                                                                    <label for="inputText" style="color:black !important" class="col-form-label">Degree</label>
+                                                                    <select id="ddlDegree" class="form-control">
+                                                                        <option value=""></option>
+                                                                        {% for option in degreeList %}
+                                                                        <option value="{{ option.code}}">{{option.description}}
+                                                                        </option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="inputText" class=" col-form-label">Major</label>
+                                                                    <input id="txtMajor" type="text" class="form-control" placeholder="">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="inputText" class=" col-form-label">University</label>
+                                                                    <input id="txtUniversity" type="text" class="form-control" autocomplete="off" placeholder="">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="inputText" class=" col-form-label">Country</label>
+                                                                    <select id="ddlCountry" class="form-control">
+                                                                        <option value=""></option>
+                                                                        {% for option in countryList %}
+                                                                        <option value="{{ option.id}}">{{option.name}}
+                                                                        </option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label for="inputText" class=" col-form-label">City</label>
+                                                                    <select id="ddlCity" class="form-control"></select>
+
+                                                                </div>
+
+                                                                <div class="col-sm-2">
+                                                                    <label for="inputText" class=" col-form-label">Year</label>
+                                                                    <input id="txtYear" type="number" class="form-control" autocomplete="off" placeholder="">
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <label for="inputText" class=" col-form-label">GPA</label>
+                                                                    <input id="txtGPA" type="number" class="form-control" autocomplete="off" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3" style="text-align: center;">
+                                                                <div class="col-lg-12 text-center">
+                                                                    <button type="button" id="btnSaveCandidateEducation" class="btn btn-primary col-sm-3"><i
+                                                                            class="bi bi-save2-fill me-1"></i>Save</button>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="card" style="background-color: #ebe9e9;">
+                                                                        <div class="card-body" style="padding: 8px 8px 8px 8px;">
+                                                                            <!-- <h5 class="card-title">
+                                                                            </h5> -->
+
+                                                                            <!-- Table with stripped rows -->
+                                                                            <table id="tblEducation" class="table table-striped" style="margin-bottom: 0rem !important;">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th scope="col">#</th>
+                                                                                        <th scope="col">Degree</th>
+                                                                                        <th scope="col">Major</th>
+                                                                                        <th scope="col">University
+                                                                                        </th>
+                                                                                        <th scope="col">City</th>
+                                                                                        <th scope="col">Country</th>
+                                                                                        <th scope="col">Year</th>
+                                                                                        <th scope="col">GPA</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+
+                                                                                    {% for option in educationList %}
+                                                                                    <tr>
+                                                                                        <th scope="row">{{ forloop.counter }}</th>
+                                                                                        <td>{{option.degree}}</td>
+                                                                                        <td>{{option.major}}</td>
+                                                                                        <td>{{option.university}}</td>
+                                                                                        <td>{{option.city}}</td>
+                                                                                        <td>{{option.country}}</td>
+                                                                                        <td>{{option.year}}</td>
+                                                                                        <td>{{option.gpa}}</td>
+                                                                                    </tr>
+                                                                                    {% endfor %}
+                                                                                    <!-- <tr>
+                                                                                        <th scope="row">1</th>
+                                                                                        <td>Master</td>
+                                                                                        <td>Computer Science</td>
+                                                                                        <td>MG University</td>
+                                                                                        <td>Cochin</td>
+                                                                                        <td>India</td>
+                                                                                        <td>Year</td>
+                                                                                        <td>60%</td>
+                                                                                    </tr> -->
+
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <!-- End Table with stripped rows -->
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Accordion without outline borders -->
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+
+
+                        </div>
+
+                        <div class="tab-pane fade pt-3" id="profile-change-password">
+                            <!-- Change Password Form -->
+
+
+                            <div class="row mb-3">
+                                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
+                                    Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="password" type="password" class="form-control" id="txtCurrentPassword">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
+                                    Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="newpassword" type="password" class="form-control" id="txtNewPassword">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
+                                    Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="renewpassword" type="password" class="form-control" id="txtRenewPassword">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button id="btnChangePassword" type="submit" class="btn btn-primary">Change
+                                    Password</button>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- End Bordered Tabs -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %} {% block js%}
+<script src="{% static '/assets/js/shared/datepicker.js' %}"></script>
+<script src="{% static '/assets/js/shared/utility.js' %}"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> -->
+<script>
+    var profile_basic_get = "{% url 'profile_basic_get' %}";
+    var profile_basic_update = "{% url 'profile_basic_update' %}";
+    var profile_password_update = "{% url 'profile_password_update' %}";
+    var profile_skill_add = "{% url 'profile_skill_add' %}";
+    var profile_skill_remove = "{% url 'profile_skill_remove' %}";
+    var profile_education_add = "{% url 'profile_education_add' %}";
+    var profile_education_remove = "{% url 'profile_education_remove' %}";
+    var profile_city_get = "{% url 'profile_city_get' %}";
+
+    var profile_image_default = "{% static '/assets/img/user.svg' %}"
+    var profile_image_education = "{% static '/assets/img/education.svg' %}"
+</script>
+<script src="{% static '/assets/vendor/tagify/tagify.js' %}"></script>
+<script src="{% static '/assets/js/profile/user-profile.js' %}"></script>
+
+{% endblock %}
